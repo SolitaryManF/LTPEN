@@ -1,0 +1,31 @@
+{
+  "name": "LTPEN"
+  , "model": "spsr"
+  , "scale": 4
+  , "gpu_ids": [0]
+
+  , "datasets": {
+    "test_1": { 
+      "name": "LTPEN-test"
+      , "mode": "LR"
+      , "dataroot_LR": "path to inputs"
+    }
+  }
+  , "path": {
+    "root": "save path"
+    , "pretrain_model_G": "./checkpoint/ltpen.pth"
+  }
+
+  , "network_G": {
+    "which_model_G": "spsr_net"
+    , "norm_type": null
+    , "mode": "CNA"
+    , "nf": 52
+    , "nb": 23
+    , "in_nc": 3
+    , "out_nc": 3
+
+    , "gc": 32
+    , "group": 1
+  }
+}

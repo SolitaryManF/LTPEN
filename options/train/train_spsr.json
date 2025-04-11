@@ -1,0 +1,84 @@
+{
+  "name": "LTPEN"
+  , "use_tb_logger": true
+  , "model":"spsr"
+  , "scale": 4
+  , "gpu_ids": [0]
+
+  , "datasets": {
+    "train": {
+      "name": "DIV2K"
+      , "mode": "LRHR"
+      , "dataroot_LR": "path to LR"
+      , "dataroot_HR": "path to HR"
+      , "subset_file": null
+      , "use_shuffle": true
+      , "n_workers": 1
+      , "batch_size": 1
+      , "HR_size": 64
+      , "use_flip": true
+      , "use_rot": true
+
+    }
+    , "val": {
+      "name": "DIV2K"
+      , "mode": "LRHR"
+      , "dataroot_LR": "path to LR val"
+      , "dataroot_HR": "path to HR cal"
+    }
+  }
+
+  , "path": {
+  "root": "./"
+//    , "resume_state": "path\\to\\50000.state"
+    , "pretrain_model_G": "path\\to\\ltpen.pth"
+  }
+
+  , "network_G": {
+    "which_model_G": "spsr_net" 
+    , "norm_type": null
+    , "mode": "CNA"
+    , "nf": 52
+    , "nb": 23
+    , "in_nc": 3
+    , "out_nc": 3
+    , "gc": 32
+    , "group": 1
+  }
+
+
+  , "train": {
+    "lr_G": 3.125e-6
+    , "weight_decay_G": 0
+    , "weight_decay_G_grad": 0
+    , "beta1_G": 0.9
+    , "beta1_G_grad": 0.9
+    , "weight_decay_D": 0
+    , "beta1_D": 0.9
+    , "lr_scheme": "MultiStepLR"
+    , "lr_steps": [2e5, 4e5, 6e5, 8e5]
+    , "lr_gamma": 0.5
+
+    , "pixel_criterion": "l1"
+    , "pixel_weight": 1
+    , "feature_criterion": "l1"
+    , "feature_weight": 0
+    , "gradient_pixel_weight": 0
+    , "ltpe_pixel_weight": 0
+    , "pixel_branch_criterion": "l1"
+    , "pixel_branch_weight": 0
+    , "ltpe_branch_criterion": "l1"
+    , "ltpe_branch_weight": 1
+    , "Branch_pretrain" : 1
+    , "Branch_init_iters" : 5000
+
+    , "manual_seed": 9
+    , "niter": 10e5
+    , "val_freq": 2e4
+  }
+
+  , "logger": {
+    "print_freq": 100
+    , "save_checkpoint_freq": 5e4
+  }
+}
